@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import data from "../assets/data/repositories.json";
 
 import Input from "../common/input";
 import Pagination from "../common/pagination";
 import ListItem from "../common/listItem";
+
+import { getRepositories } from "../../services/repositoryService";
 
 export default function Main() {
   const [pagination, setPagination] = useState({
@@ -21,7 +22,7 @@ export default function Main() {
 
   const sortByStar = () => {
     //Fetch data from API
-    const sortRepositories = data.sort((a, b) => a.star - b.star);
+    const sortRepositories = getRepositories().sort((a, b) => a.star - b.star);
     setRepositories(sortRepositories);
   };
 
@@ -31,7 +32,7 @@ export default function Main() {
     setKeywords(input);
 
     //Search in the front end, nomally should
-    const repositories = data
+    const repositories = getRepositories()
       .sort((a, b) => a.star - b.star)
       .filter((e) => e.name.toLowerCase().includes(input.toLowerCase()));
     setRepositories(repositories);
