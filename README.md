@@ -37,8 +37,9 @@ After two hours:
 6. Add test in app.test.js and make the functions 100% covered
 
 ## `How to run:`
-
-### `npm start`
+#### `git clone the project to local`
+#### `run: npm install`
+#### `run: npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
