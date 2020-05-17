@@ -14,15 +14,15 @@ Solutions to save time:
 
 ### `3. Specific Solution`
 In two hours:
-1) Draft the design of UI: Page header + Search + List of repositories (repository’s Id, name, watchers_count, programming_language and start)
+1) Draft the design of UI: Page header + Search + List of repositories (repository’s Id, name, watchers_count, programming_language and start).
 2) Create Application, install 3rd party libraries, struction the project (components, services and mock data),copy in reusable common components and add mock data to be used.
-3) Start from main.jsx, import input component, pagination component, use mock data to show the list and use bootstrap style to display information responsively.
+3) Start from main.jsx, import input component, pagination component, use mock data to show the list and use bootstrap style to display information responsively.
 4) Add functions: sort mock data by star, integrate pagination functions and search input functions.
-The application meets the requirements in two hours' time.
+5) The application meets the requirements in two hours' time.
 
 After two hours:
-1) Add a little bit more style to make the page more readable
-2) Move listItem to individual component
+1) Add a little bit more style to make the page more readable.
+2) Move listItem to individual component.
 3) Install axios, add http service. Move data import from components to services, identify api endpoint and prepare for http call.
 4) Replace sortByStar with sortBy function to let the user sort posiitory by Id, Star or Watch.
 5) Add Header component with page title and move sort by group buttons to this component
