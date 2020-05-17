@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Input from "../common/input";
 import Pagination from "../common/pagination";
 import ListItem from "../common/listItem";
+import Header from "./header";
 
 import { getRepositories } from "../../services/repositoryService";
 
@@ -20,24 +21,12 @@ export default function Main() {
     setPagination(newPagination);
   };
 
-  const sortByStar = () => {
-    //Fetch data from API
-    const sortRepositories = getRepositories().sort((a, b) => a.star - b.star);
+  const initData = () => {
+    const sortRepositories = getRepositories();
     setRepositories(sortRepositories);
   };
 
-  const search = (e) => {
-    //Change input value
-    const input = e.target.value;
-    setKeywords(input);
-
-    //Search in the front end, nomally should
-    const repositories = getRepositories()
-      .sort((a, b) => a.star - b.star)
-      .filter((e) => e.name.toLowerCase().includes(input.toLowerCase()));
-    setRepositories(repositories);
-
-    //Set Pagination
+  const resetPagination = () => {
     const newPagination = {
       ...pagination,
       currentPage: 1,
@@ -46,12 +35,34 @@ export default function Main() {
     setPagination(newPagination);
   };
 
+  const sortBy = (key) => {
+    let newRepositories = repositories;
+    newRepositories.sort((a, b) => a[key] - b[key]);
+    setRepositories(newRepositories);
+
+    resetPagination();
+  };
+
+  const search = (e) => {
+    //Change input value
+    const input = e.target.value;
+    setKeywords(input);
+
+    //Search in the front end, nomally should
+    const newRepositories = getRepositories()
+      .filter((e) => e.name.toLowerCase().includes(input.toLowerCase()));
+    setRepositories(newRepositories);
+
+    resetPagination();
+  };
+
   useEffect(() => {
-    sortByStar();
+    initData();
   }, []);
 
   return (
     <div className="container mt-3">
+      <Header sortBy={sortBy}/>
       <Input
         name="search"
         value={keywords}

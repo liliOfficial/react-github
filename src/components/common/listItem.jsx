@@ -21,7 +21,7 @@ const ListItem = (props) => {
       </div>
       <div>
         <span>
-          id: <span className="rep-id">{repository.id}</span>
+          Id: <span className="rep-id">{repository.id}</span>
         </span>
         <span>
           <FontAwesomeIcon icon={faCode} />
