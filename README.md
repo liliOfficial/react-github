@@ -16,7 +16,7 @@ Solutions to save time:
 In two hours:
 1) Draft the design of UI: Page header + Search + List of repositories (repository’s Id, name, watchers_count, programming_language and start)
 2) Create Application, install 3rd party libraries, struction the project (components, services and mock data),copy in reusable common components and add mock data to be used.
-3)  Start from main.jsx, import input component, pagination component, use mock data to show the list and use bootstrap style to display information responsively.
+3) Start from main.jsx, import input component, pagination component, use mock data to show the list and use bootstrap style to display information responsively.
 4) Add functions: sort mock data by star, integrate pagination functions and search input functions.
 The application meets the requirements in two hours' time.
 
