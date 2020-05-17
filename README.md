@@ -8,9 +8,9 @@
 As the main conflict is the time limitation and the quality of the products, I decided to build the main functions in 2 hours, add more detail after that and submit the product in one day.
 
 Solutions to save time:
-Use 'create-react-app' to create project
-User 3rd party libraries including: bootstrap for responsive and style and font-awesome for icons
-Reuse some common components I have written before for example: input and pagination
+1) Use 'create-react-app' to create project
+2) User 3rd party libraries including: bootstrap for responsive and style and font-awesome for icons
+3) Reuse some common components I have written before for example: input and pagination
 
 ### `3. Specific Solution`
 In two hours:
