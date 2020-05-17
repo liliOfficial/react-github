@@ -16,7 +16,7 @@ code {
   padding:10px 15px;
   margin-bottom: 10px;
   box-shadow: 0 0 5px 0 #d8d8d8;
-  border-radius: 8px;
+  border-radius: 5px;
   color:#484848;
 }
 .list-item:hover {
@@ -28,18 +28,22 @@ code {
   display:inline-block;
 }
 
+.list-item h5 {
+  margin-bottom: 3px;
+}
+
 .programming-languarge {
   min-width: 100px; 
   margin-left: 5px;
 }
 
 .rep-id {
-  min-width: 30px;
+  min-width: 50px;
   margin-right: 10px;
 }
 
 .watch {
-  min-width: 20px;
+  min-width: 25px;
 }
 
 .star {

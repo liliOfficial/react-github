@@ -51,9 +51,9 @@ export default class Pagination extends Component {
     }
 
     return (
-      <div className="row">
+      <div className="row mb-3">
         <div className="col-sm-7">
-          <ul className="pagination pagination-sm">
+          <ul className="pagination pagination-sm mb-0">
             <li
               className={"page-item " + (currentPage == 1 ? "disabled" : "")}
               onClick={() =>
