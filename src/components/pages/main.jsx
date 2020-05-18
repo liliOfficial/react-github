@@ -18,25 +18,25 @@ export default function Main() {
   const [repositories, setRepositories] = useState([]);
   const [keywords, setKeywords] = useState("");
 
-  const initData = () => {
+  const initPageData = () => {
     const repositoriesData = getRepositories();
     setRepositories(repositoriesData);
     resetPagination(repositoriesData);
   };
 
-  const resetPagination = (newRepositories) => {
-    const endNum = Math.min(pagination.step, newRepositories.length);
+  const resetPagination = (inputData) => {
+    const endNum = Math.min(pagination.step, inputData.length);
     const newPagination = {
       ...pagination,
       currentPage: 1,
       startNum: 0,
       endNum,
-      total: newRepositories.length,
+      total: inputData.length,
     };
     setPagination(newPagination);
   };
 
-  const changeCurrentPage = (num) => {
+  const changePaginationPage = (num) => {
     const startNum = (num - 1) * pagination.step;
     const endNum = Math.min(num * pagination.step, pagination.total);
     const newPagination = { ...pagination, startNum, endNum, currentPage: num };
@@ -47,18 +47,16 @@ export default function Main() {
     let newRepositories = repositories;
     newRepositories.sort((a, b) => a[key] - b[key]);
     setRepositories(newRepositories);
-
     resetPagination(newRepositories);
   };
 
-  const search = (e) => {
+  const searchKeywords = (e) => {
     const input = e.target.value;
     setKeywords(input);
-
-    filterRepositories(input);
+    filterRepositoriesWithKeywords(input);
   };
 
-  const filterRepositories = (input) => {
+  const filterRepositoriesWithKeywords = (input) => {
     const newRepositories = getRepositories().filter((e) =>
       e.name.toLowerCase().includes(input.toLowerCase())
     );
@@ -67,7 +65,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    initData();
+    initPageData();
   }, []);
 
   return (
@@ -77,7 +75,7 @@ export default function Main() {
         name="search"
         value={keywords}
         placeholder="Search repository by name"
-        onChange={search}
+        onChange={searchKeywords}
       />
       <Pagination
         startNum={pagination.startNum + 1}
@@ -85,7 +83,7 @@ export default function Main() {
         totalNum={pagination.total}
         currentPage={pagination.currentPage}
         totalPage={pagination.total / pagination.step}
-        changeCurrentPage={changeCurrentPage}
+        changeCurrentPage={changePaginationPage}
       />
       <div>
         {repositories.slice(pagination.startNum, pagination.endNum).map((e) => {
