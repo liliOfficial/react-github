@@ -31,6 +31,7 @@ After two hours:
 
 ### `4. Further improvement can be done`
 1. Improve UI
+2. Clean pagination code: as the reusable pagination class is writen long time ago (before the hooks), there are some redundancy code inside and it is a little bit complex to integrate it into the new project.
 2. Integrate "Typescript" to identify interface for API data and props
 3. Use "Router" to navigate between different pages
 4. User tools such as "Toaster" for globe error control and display the error message
