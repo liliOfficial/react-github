@@ -11,6 +11,8 @@ export default function Main() {
   const [pagination, setPagination] = useState({
     currentPage: 1,
     total: 0,
+    startNum: 0,
+    endNum: 0,
     step: 10,
   });
   const [repositories, setRepositories] = useState([]);
@@ -23,16 +25,21 @@ export default function Main() {
   };
 
   const resetPagination = (newRepositories) => {
+    const endNum = Math.min(pagination.step, newRepositories.length);
     const newPagination = {
       ...pagination,
       currentPage: 1,
+      startNum: 0,
+      endNum,
       total: newRepositories.length,
     };
     setPagination(newPagination);
   };
 
   const changeCurrentPage = (num) => {
-    const newPagination = { ...pagination, currentPage: num };
+    const startNum = (num - 1) * pagination.step;
+    const endNum = Math.min(num * pagination.step, pagination.total);
+    const newPagination = { ...pagination, startNum, endNum, currentPage: num };
     setPagination(newPagination);
   };
 
@@ -73,25 +80,17 @@ export default function Main() {
         onChange={search}
       />
       <Pagination
-        startNum={(pagination.currentPage - 1) * pagination.step + 1}
-        endNum={Math.min(
-          pagination.currentPage * pagination.step,
-          pagination.total
-        )}
+        startNum={pagination.startNum + 1}
+        endNum={pagination.endNum}
         totalNum={pagination.total}
         currentPage={pagination.currentPage}
         totalPage={pagination.total / pagination.step}
         changeCurrentPage={changeCurrentPage}
       />
       <div>
-        {repositories
-          .slice(
-            (pagination.currentPage - 1) * pagination.step,
-            Math.min(pagination.currentPage * pagination.step, pagination.total)
-          )
-          .map((e) => {
-            return <ListItem repository={e} key={e.id} />;
-          })}
+        {repositories.slice(pagination.startNum, pagination.endNum).map((e) => {
+          return <ListItem repository={e} key={e.id} />;
+        })}
       </div>
     </div>
   );
