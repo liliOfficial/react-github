@@ -10,28 +10,29 @@ import { getRepositories } from "../../services/repositoryService";
 export default function Main() {
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    total: 20,
+    total: 0,
     step: 10,
   });
   const [repositories, setRepositories] = useState([]);
   const [keywords, setKeywords] = useState("");
 
-  const searchPagination = (num) => {
-    const newPagination = { ...pagination, currentPage: num };
-    setPagination(newPagination);
-  };
-
   const initData = () => {
-    const sortRepositories = getRepositories();
-    setRepositories(sortRepositories);
+    const repositoriesData = getRepositories();
+    setRepositories(repositoriesData);
+    resetPagination(repositoriesData);
   };
 
-  const resetPagination = () => {
+  const resetPagination = (newRepositories) => {
     const newPagination = {
       ...pagination,
       currentPage: 1,
-      total: repositories.length,
+      total: newRepositories.length,
     };
+    setPagination(newPagination);
+  };
+
+  const changeCurrentPage = (num) => {
+    const newPagination = { ...pagination, currentPage: num };
     setPagination(newPagination);
   };
 
@@ -40,20 +41,22 @@ export default function Main() {
     newRepositories.sort((a, b) => a[key] - b[key]);
     setRepositories(newRepositories);
 
-    resetPagination();
+    resetPagination(newRepositories);
   };
 
   const search = (e) => {
-    //Change input value
     const input = e.target.value;
     setKeywords(input);
 
-    //Search in the front end, nomally should
-    const newRepositories = getRepositories()
-      .filter((e) => e.name.toLowerCase().includes(input.toLowerCase()));
-    setRepositories(newRepositories);
+    filterRepositories(input);
+  };
 
-    resetPagination();
+  const filterRepositories = (input) => {
+    const newRepositories = getRepositories().filter((e) =>
+      e.name.toLowerCase().includes(input.toLowerCase())
+    );
+    setRepositories(newRepositories);
+    resetPagination(newRepositories);
   };
 
   useEffect(() => {
@@ -62,7 +65,7 @@ export default function Main() {
 
   return (
     <div className="container mt-3">
-      <Header sortBy={sortBy}/>
+      <Header sortBy={sortBy} />
       <Input
         name="search"
         value={keywords}
@@ -78,12 +81,12 @@ export default function Main() {
         totalNum={pagination.total}
         currentPage={pagination.currentPage}
         totalPage={pagination.total / pagination.step}
-        changeCurrentPage={searchPagination}
+        changeCurrentPage={changeCurrentPage}
       />
       <div>
         {repositories
           .slice(
-            (pagination.currentPage - 1) * pagination.step + 1,
+            (pagination.currentPage - 1) * pagination.step,
             Math.min(pagination.currentPage * pagination.step, pagination.total)
           )
           .map((e) => {
